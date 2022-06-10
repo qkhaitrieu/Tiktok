@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    flex-direction: column; // căn ra chiều dọc
+    align-items: center; // căn giữa
+}
+.container {
+    width: var(--default-layout-width);
+    display: flex;
+}
+.content {
+    flex: 1;
+}
