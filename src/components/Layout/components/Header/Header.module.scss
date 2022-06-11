@@ -1,4 +1,9 @@
 .wrapper {
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-spacer: 9px;
+    --search-button-width: 52px;
+
     height: var(--default-layout-header-height, 60px);
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
     display: flex;
@@ -8,4 +13,68 @@
 .inner {
     height: 100%;
     width: var(--default-layout-width);
+    display: flex;
+    align-items: center; /* căn giữa theo chiều cao */
+    justify-content: space-between; /* khoảng cách giữa các thành phần luôn bằng nhau, tuy nhiên phần tử đầu luôn nằm sát trái, phần tử cuối luôn nằm sát phải */
+}
+.logo {
+}
+.search {
+    width: 361px;
+    position: relative;
+    height: var(--search-height);
+    display: flex;
+    padding-left: 16px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: var(--search-border-radius);
+    border: 1.5px solid transparent;
+
+    input {
+        flex: 1;
+        color: var(--black);
+        font-size: 1.6rem;
+        caret-color: var(--primary); /* Thanh nhấp nháy chỗ tìm kiếm thành màu primary  */
+        height: 100%;
+        background-color: transparent;
+    }
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: var(--primary); /* Khi ra nhập chữ vào thì biểu tượng tìm kiếm sẽ đậm lên */
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        top: var(--search-top-spacer);
+        right: var(--search-button-width);
+        height: calc(var(--search-height) - var(--search-top-spacer) * 2);
+        width: 1px;
+        background-color: rgba(22, 24, 35, 0.12);
+        /* tạo vạch ngăn giữa  */
+    }
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2); /* Làm boder đậm lên khi hover chuột  vào */
+    }
+}
+.clear,
+.loading {
+    position: absolute;
+    right: calc(var(--search-button-width) + 16px); /* làm icon dấu X xa ra */
+    top: 50%;
+    transform: translateY(-50%); /* căn giữa */
+    color: rgba(22, 24, 35, 0.34);
+}
+.search-btn {
+    width: var(--search-button-width);
+    height: 100%;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    font-size: 1.8rem;
+    color: rgba(0, 0, 0, 0.34);
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+    }
+    &:active {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
 }
