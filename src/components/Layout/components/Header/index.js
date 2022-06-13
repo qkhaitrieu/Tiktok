@@ -98,10 +98,10 @@ function Header() {
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                             <PopperWrapper>
                                 <h4 className={cx('search-title')}>Accounts</h4>
-                                          <AccountItem/>
-                                          <AccountItem/>
-                                          <AccountItem/>
-                                          <AccountItem/>               
+                                <AccountItem />
+                                <AccountItem />
+                                <AccountItem />
+                                <AccountItem />
                             </PopperWrapper>
                         </div>
                     )}
@@ -120,9 +120,8 @@ function Header() {
                     </div>
                 </Tippy>
                 <div className={cx('action')}>
-                    <Button>
-                        Log in
-                    </Button>
+                    <Button text> Upload </Button>
+                    <Button primary>Log in</Button>
                 </div>
             </div>
         </header>

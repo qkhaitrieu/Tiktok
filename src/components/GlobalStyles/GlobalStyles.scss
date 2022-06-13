@@ -2,22 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Lato:wght@100&family=Roboto:wght@300&display=swap');
 
 :root {
-    --primary: #fe2c55;
+    --primary: rgba(254, 44, 85, 1);
     --black: #000;
     --text-color: #333;
+    --white: #fff;
 
     //Defaulayout
     --default-layout-header-height: 60px;
-    --default-layout-width : 1150px;
+    --default-layout-width: 1150px;
 }
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 html {
     font-size: 62.5%;
-    
 }
 body {
     font-family: 'IBM Plex Sans', sans-serif;
@@ -26,7 +26,9 @@ body {
     text-rendering: optimizeSpeed; // tối uu sao cho hiển thị nhanh nhất
 }
 
-button, input, [tabindex] {
+button,
+input,
+[tabindex] {
     outline: none;
     border: none;
 }

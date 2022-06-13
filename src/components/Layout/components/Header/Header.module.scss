@@ -20,12 +20,12 @@
 .logo {
 }
 
-.search, .search-result{
-    width: 316px; 
+.search,
+.search-result {
+    width: 316px;
 }
 
 .search {
-    
     position: relative;
     height: var(--search-height);
     display: flex;
@@ -60,7 +60,7 @@
     }
 }
 
-.search-title{
+.search-title {
     padding: 5px 12px;
     font-size: 1.4rem;
     font-weight: 600;
