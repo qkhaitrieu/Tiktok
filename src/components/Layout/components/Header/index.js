@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleXmark,
+    faSpinner,
+    faMagnifyingGlass,
+    faEllipsisVertical,
+    faEarthAsia,
+    faCircleQuestion,
+    faKeyboard,
+} from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless'; // different import path!
 
@@ -8,7 +16,46 @@ import Button from '~/components/Button';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss';
 import AccountItem from '~/components/AccountItem';
+import Menu from '~/components/Popper/Menu';
+import MenuItem from '~/components/Popper/Menu/MenuItem';
+
 const cx = classNames.bind(styles); /* bind cái object styles vào rồi trả ra method funcition */
+
+const MENU_ITEMS = [
+    {
+        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        title: 'Tiếng Việt',
+        children: { // children này là lớp con của lớp ngôn ngữ, đặt là object mới thể hiện đc thứ bên trong nó
+            title: 'language',
+            data : [  //cho nó là mảng để thể hiện đươc nhiều ngôn ngữ
+                {
+                    type: 'language',
+                    code: 'vie',
+                    title: 'Tiếng Việt',
+                },
+                 {
+                      type: 'language',
+                    code: 'en',
+                    title: 'Tiếng Anh',
+                },
+                 {
+                      type: 'language',
+                    code: 'chi',
+                    title: 'Tiếng Trung',
+                },
+            ],
+        },
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'Feedback and help',
+        to: '/feedback',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        title: 'Keyboard shortcut',
+    },  
+];
 
 function Header() {
     const [searchResult, setSearchresult] = useState([]); /* Hiện cái bảng khi tìm kiếm */
@@ -17,6 +64,17 @@ function Header() {
             setSearchresult([]);
         }, 0); /* sau ... giây thì hiển thị kết quả */
     }, []);
+
+const handleMenuChange = ( MenuItem) => {
+    switch( MenuItem.type){
+        case 'language':
+        //handle change english
+        break;
+        default:
+
+    }
+}
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -122,6 +180,12 @@ function Header() {
                 <div className={cx('action')}>
                     <Button text> Upload </Button>
                     <Button primary>Log in</Button>
+
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
+                        <button className={cx('more-btn')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical}> </FontAwesomeIcon>
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header>

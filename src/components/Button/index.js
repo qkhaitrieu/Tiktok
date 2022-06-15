@@ -39,8 +39,8 @@ function Button({
         Comp = 'a';
     }
     const classes = cx('wrapper', {
-        [className]: className,
         primary,
+        [className]: className,
         outline,
         disabled,
         text,
