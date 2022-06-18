@@ -11,7 +11,7 @@ const publicRoutes = [
     // không cần đăng nhâp
     { path: '/', component: Home },
     { path: '/following', component: Following },
-    { path: '/profile', component: Profile },
+    { path: '/@:nickname', component: Profile },
     { path: '/upload', component: Upload, layout: HeaderOnly  },
     { path: '/search', component: Search, layout: null  }, // null là không có layout
 ];

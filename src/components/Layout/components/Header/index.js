@@ -1,23 +1,27 @@
-import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faCircleXmark,
-    faSpinner,
-    faMagnifyingGlass,
     faEllipsisVertical,
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
+    faUpload,
+    faCoins,
+    faGear,
+    faUserLarge,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless'; // different import path!
+import Tippy from '@tippyjs/react';
+
+import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
+
 import styles from './Header.module.scss';
-import AccountItem from '~/components/AccountItem';
+import Search from '../Search';
 import Menu from '~/components/Popper/Menu';
 import MenuItem from '~/components/Popper/Menu/MenuItem';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles); /* bind cái object styles vào rồi trả ra method funcition */
 
@@ -25,21 +29,23 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: 'Tiếng Việt',
-        children: { // children này là lớp con của lớp ngôn ngữ, đặt là object mới thể hiện đc thứ bên trong nó
+        children: {
+            // children này là lớp con của lớp ngôn ngữ, đặt là object mới thể hiện đc thứ bên trong nó
             title: 'language',
-            data : [  //cho nó là mảng để thể hiện đươc nhiều ngôn ngữ
+            data: [
+                //cho nó là mảng để thể hiện đươc nhiều ngôn ngữ
                 {
                     type: 'language',
                     code: 'vie',
                     title: 'Tiếng Việt',
                 },
-                 {
-                      type: 'language',
+                {
+                    type: 'language',
                     code: 'en',
                     title: 'Tiếng Anh',
                 },
-                 {
-                      type: 'language',
+                {
+                    type: 'language',
                     code: 'chi',
                     title: 'Tiếng Trung',
                 },
@@ -54,26 +60,45 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Keyboard shortcut',
-    },  
+    },
 ];
 
 function Header() {
-    const [searchResult, setSearchresult] = useState([]); /* Hiện cái bảng khi tìm kiếm */
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchresult([]);
-        }, 0); /* sau ... giây thì hiển thị kết quả */
-    }, []);
+    const currentUser = true;
 
-const handleMenuChange = ( MenuItem) => {
-    switch( MenuItem.type){
-        case 'language':
-        //handle change english
-        break;
-        default:
+    const handleMenuChange = (MenuItem) => {
+        switch (MenuItem.type) {
+            case 'language':
+                //handle change english
+                break;
+            default:
+        }
+    };
 
-    }
-}
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUserLarge} />,
+            title: 'View profile',
+            to: '/@khaii',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Setting',
+            to: '/setting',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true, // thêm này  sẽ có cái vạch
+        },
+    ];
 
     return (
         <header className={cx('wrapper')}>
@@ -149,42 +174,34 @@ const handleMenuChange = ( MenuItem) => {
                         </clipPath>
                     </defs>
                 </svg>{' '}
-                <Tippy
-                    interactive /* interactive giúp tương tác với kết quả */
-                    visible={searchResult.length > 0} /* nếu kết quả tìm kiếm lớn hơn 0 mới hiện */
-                    render={(attrs) => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
+                <Search/>
+                <div className={cx('actions')}>
+                    {currentUser ? (
+                        <>
+                            <Tippy delay={[0, 200]} content="Upload video " placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faUpload} />
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button text> Upload </Button>
+                            <Button primary>Log in</Button>
+                        </>
                     )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Search accounts and videos" spellCheck={false} />{' '}
-                        {/* spell check là để bỏ gạch chân đỏ dưới */}
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-                        <button className={cx('search-btn')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />{' '}
-                            {/* sử dụng thẻ tippy để khi hover vào nó hiện chữ ra, placement để nó lonh động */}
-                        </button>
-                    </div>
-                </Tippy>
-                <div className={cx('action')}>
-                    <Button text> Upload </Button>
-                    <Button primary>Log in</Button>
-
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical}> </FontAwesomeIcon>
-                        </button>
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <Image
+                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/a1ab1e7a7aac1a5a11f08478d69d8e6a~c5_100x100.jpeg?x-expires=1655589600&x-signature=RNivGp5h81MCws8zQFGUlgbbmAM%3D"
+                                className={cx('user-avatar')}
+                                alt="Khải"
+                            />
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical}> </FontAwesomeIcon>
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
