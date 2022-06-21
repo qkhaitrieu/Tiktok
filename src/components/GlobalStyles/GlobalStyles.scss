@@ -27,6 +27,32 @@ body {
     text-rendering: optimizeSpeed; // tối uu sao cho hiển thị nhanh nhất
 }
 
+//Scrollbar CSS (Thanh cuộn)
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 button,
 input,
 [tabindex] {
@@ -39,21 +65,23 @@ a[href] {
 }
 
 //Custom tippy
-body {.tippy-box{
-    background-color:  rgba( 84, 84, 84, 0.92);
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1.6rem;
-    line-height: 2.2rem;
-}
-.tippy-arrow {
-    color: rgba( 84, 84, 84, 0.92);
-}
-.tippy-content{
-    padding:  8px 9px;
-}
-.tippy-box[data-placement^=bottom]>.tippy-arrow::before {
-    top: -8px;
-    
-}
+body {
+    .tippy-box {
+        background-color: rgba(84, 84, 84, 0.92);
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        overflow-y: overlay; // cho thanh cuộn nổi lên không chiếm vị trí
+    }
+
+    .tippy-arrow {
+        color: rgba(84, 84, 84, 0.92);
+    }
+    .tippy-content {
+        padding: 8px 9px;
+    }
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+        top: -8px;
+    }
 }

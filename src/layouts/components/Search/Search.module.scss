@@ -23,6 +23,7 @@
         height: 100%;
         background-color: transparent;
     }
+
     input:not(:placeholder-shown) ~ .search-btn {
         color: var(--primary); /* Khi ra nhập chữ vào thì biểu tượng tìm kiếm sẽ đậm lên */
     }
